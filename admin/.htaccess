@@ -1,0 +1,38 @@
+# Enable URL rewriting
+RewriteEngine On
+
+# Set default charset
+AddDefaultCharset UTF-8
+
+# Protect against XSS, clickjacking and other vulnerabilities
+Header set X-XSS-Protection "1; mode=block"
+Header set X-Frame-Options "SAMEORIGIN"
+Header set X-Content-Type-Options "nosniff"
+Header set Referrer-Policy "strict-origin-when-cross-origin"
+
+# Disable directory listing
+Options -Indexes
+
+# Protect sensitive files
+<FilesMatch "^\.">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Protect configuration files
+<FilesMatch "^(config\.php|db\.php|composer\.json|package\.json)">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Prevent access to system files
+<FilesMatch "(^\..*|\.json|\.lock|\.sql|\.config|\.env|\.md|\.yml|\.yaml|\.xml)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# PHP settings
+php_value upload_max_filesize 10M
+php_value post_max_size 10M
+php_value max_execution_time 300
+php_value max_input_time 300 
