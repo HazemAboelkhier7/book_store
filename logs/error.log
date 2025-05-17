@@ -615,3 +615,22 @@ Stack trace:
 [13-May-2025 11:40:27 Asia/Riyadh] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\dashboard\book_store\ajax\add_to_cart.php on line 11
 [13-May-2025 11:40:46 Asia/Riyadh] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\dashboard\book_store\ajax\add_to_cart.php on line 11
 [13-May-2025 12:07:26 Asia/Riyadh] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\dashboard\book_store\ajax\add_to_cart.php on line 11
+[16-May-2025 11:17:08 Asia/Riyadh] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\dashboard\book_store\ajax\add_to_cart.php on line 11
+[16-May-2025 11:26:34 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\dashboard\book_store\index.php on line 358
+[16-May-2025 11:38:32 Asia/Riyadh] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\dashboard\book_store\admin\header.php:145) in C:\xampp\htdocs\dashboard\book_store\admin\books.php on line 59
+[16-May-2025 11:39:18 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\dashboard\book_store\index.php on line 358
+[16-May-2025 11:42:26 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\dashboard\book_store\index.php on line 358
+[16-May-2025 11:43:09 Asia/Riyadh] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\dashboard\book_store\index.php on line 358
+[16-May-2025 11:43:29 Asia/Riyadh] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\dashboard\book_store\admin\header.php:145) in C:\xampp\htdocs\dashboard\book_store\admin\books.php on line 59
+[16-May-2025 11:44:30 Asia/Riyadh] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\dashboard\book_store\ajax\add_to_cart.php on line 11
+[16-May-2025 11:45:21 Asia/Riyadh] PHP Warning:  session_destroy(): Trying to destroy uninitialized session in C:\xampp\htdocs\dashboard\book_store\includes\auth.php on line 54
+[16-May-2025 11:49:21 Asia/Riyadh] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\dashboard\book_store\ajax\add_to_cart.php on line 11
+[16-May-2025 11:58:16 Asia/Riyadh] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\dashboard\book_store\ajax\add_to_cart.php on line 11
+[16-May-2025 12:02:50 Asia/Riyadh] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\dashboard\book_store\ajax\add_to_cart.php on line 11
+[16-May-2025 12:04:25 Asia/Riyadh] PHP Warning:  session_destroy(): Trying to destroy uninitialized session in C:\xampp\htdocs\dashboard\book_store\includes\auth.php on line 54
+[16-May-2025 12:10:42 Asia/Riyadh] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\dashboard\book_store\ajax\add_to_cart.php on line 11
+[16-May-2025 12:10:58 Asia/Riyadh] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\dashboard\book_store\ajax\add_to_cart.php on line 11
+[16-May-2025 12:11:02 Asia/Riyadh] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\dashboard\book_store\ajax\add_to_cart.php on line 11
+[16-May-2025 12:11:52 Asia/Riyadh] PHP Warning:  session_destroy(): Trying to destroy uninitialized session in C:\xampp\htdocs\dashboard\book_store\includes\auth.php on line 54
+[16-May-2025 16:59:24 Asia/Riyadh] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\dashboard\book_store\ajax\add_to_cart.php on line 11
+[16-May-2025 17:05:05 Asia/Riyadh] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\dashboard\book_store\ajax\add_to_cart.php on line 11

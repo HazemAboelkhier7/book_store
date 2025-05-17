@@ -9,10 +9,11 @@ require_once '../includes/db.php';
 
 $conn = get_db();
 $errors = [];
+$authors_result = $conn->query("SELECT id, name FROM authors ORDER BY name ASC");
 $book = [
     'id' => '',
     'title' => '',
-    'author' => '',
+    'author_id' => '',
     'description' => '',
     'price' => '',
     'stock' => '1',
@@ -36,6 +37,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     
     if ($result && $result->num_rows > 0) {
         $book = $result->fetch_assoc();
+        if (!isset($book['author_id'])) $book['author_id'] = '';
     } else {
         // Book not found
         $_SESSION['admin_message'] = 'الرواية غير موجودة';
@@ -54,9 +56,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     
     // Validate author
-    $book['author'] = clean($_POST['author'] ?? '');
-    if (empty($book['author'])) {
-        $errors[] = 'يرجى إدخال اسم المؤلف';
+    $book['author_id'] = intval($_POST['author_id'] ?? 0);
+    if (empty($book['author_id'])) {
+        $errors[] = 'يرجى اختيار المؤلف';
     }
     
     // Validate description
@@ -135,7 +137,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Update existing book
             $stmt = $conn->prepare("UPDATE books SET 
                                     title = ?, 
-                                    author = ?, 
+                                    author_id = ?, 
                                     description = ?, 
                                     price = ?, 
                                     stock = ?, 
@@ -143,9 +145,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     publication_year = ?,
                                     pages = ?
                                     WHERE id = ?");
-            $stmt->bind_param("sssdssiis", 
+            $stmt->bind_param("sisdssiis", 
                             $book['title'], 
-                            $book['author'], 
+                            $book['author_id'], 
                             $book['description'], 
                             $book['price'], 
                             $book['stock'], 
@@ -164,11 +166,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         } else {
             // Insert new book
-            $stmt = $conn->prepare("INSERT INTO books (title, author, description, price, stock, cover_image, publication_year, pages) 
+            $stmt = $conn->prepare("INSERT INTO books (title, author_id, description, price, stock, cover_image, publication_year, pages) 
                                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-            $stmt->bind_param("sssdssis", 
+            $stmt->bind_param("sisdssis", 
                             $book['title'], 
-                            $book['author'], 
+                            $book['author_id'], 
                             $book['description'], 
                             $book['price'], 
                             $book['stock'], 
@@ -217,8 +219,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </div>
                     
                     <div class="mb-3">
-                        <label for="author" class="form-label">المؤلف <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="author" name="author" value="<?php echo htmlspecialchars(isset($book['author']) ? $book['author'] : ''); ?>" required>
+                        <label for="author_id" class="form-label">المؤلف <span class="text-danger">*</span></label>
+                        <select class="form-control" id="author_id" name="author_id" required>
+                            <option value="">اختر المؤلف</option>
+                            <?php if ($authors_result): ?>
+                                <?php while ($author = $authors_result->fetch_assoc()): ?>
+                                    <option value="<?php echo $author['id']; ?>" <?php if(isset($book['author_id']) && $book['author_id'] == $author['id']) echo 'selected'; ?>>
+                                        <?php echo htmlspecialchars($author['name']); ?>
+                                    </option>
+                                <?php endwhile; ?>
+                            <?php endif; ?>
+                        </select>
                     </div>
                     
                     <div class="mb-3">
