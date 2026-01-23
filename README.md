@@ -53,8 +53,8 @@ assets/uploads/
 
 1. انتقل إلى: http://localhost/dashboard/book_store/admin/
 2. استخدم بيانات الاعتماد الافتراضية:
-   - اسم المستخدم: `admin`
-   - كلمة المرور: `admin123`
+   - اسم المستخدم: `admin2`
+   - كلمة المرور: `admin1234`
 
 ## المميزات
 
