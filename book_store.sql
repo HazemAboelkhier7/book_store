@@ -1,8 +1,10 @@
--- Drop database if exists
-DROP DATABASE IF EXISTS book_store;
+-- Book Store Database Schema
+-- Run this file to create the database structure
 
 -- Create database if not exists
-CREATE DATABASE IF NOT EXISTS book_store;
+CREATE DATABASE IF NOT EXISTS book_store
+    CHARACTER SET utf8mb4
+    COLLATE utf8mb4_unicode_ci;
 USE book_store;
 
 -- Settings table
@@ -106,16 +108,8 @@ CREATE TABLE IF NOT EXISTS admins (
 
 -- Insert default settings
 INSERT INTO settings (
-    site_name, 
-    site_description, 
-    site_keywords, 
-    site_email, 
-    site_phone, 
-    site_address, 
-    shipping_cost, 
-    tax_rate, 
-    currency_symbol, 
-    items_per_page
+    site_name, site_description, site_keywords, site_email, 
+    site_phone, site_address, shipping_cost, tax_rate, currency_symbol, items_per_page
 ) VALUES (
     'متجر الكتب',
     'متجر الكتب العربية الأول',
@@ -123,43 +117,18 @@ INSERT INTO settings (
     'info@example.com',
     '+1234567890',
     'عنوان المتجر',
-    30.00,
-    15.00,
-    'ر.س',
-    12
-) ON DUPLICATE KEY UPDATE 
-    site_name = VALUES(site_name),
-    site_description = VALUES(site_description),
-    site_keywords = VALUES(site_keywords),
-    site_email = VALUES(site_email),
-    site_phone = VALUES(site_phone),
-    site_address = VALUES(site_address),
-    shipping_cost = VALUES(shipping_cost),
-    tax_rate = VALUES(tax_rate),
-    currency_symbol = VALUES(currency_symbol),
-    items_per_page = VALUES(items_per_page);
+    30.00, 15.00, 'ر.س', 12
+) ON DUPLICATE KEY UPDATE site_name = VALUES(site_name);
 
 -- Insert sample categories
 INSERT INTO categories (name) VALUES 
-('روايات'),
-('كتب دينية'),
-('كتب تاريخية'),
-('كتب علمية'),
-('كتب أطفال'),
-('كتب تنمية بشرية'),
-('شعر'),
-('سير ذاتية');
+('روايات'), ('كتب دينية'), ('كتب تاريخية'), ('كتب علمية'),
+('كتب أطفال'), ('كتب تنمية بشرية'), ('شعر'), ('سير ذاتية');
 
 -- Insert sample authors
 INSERT INTO authors (name) VALUES 
-('نجيب محفوظ'),
-('أحمد خالد توفيق'),
-('غسان كنفاني'),
-('جبران خليل جبران'),
-('طه حسين'),
-('يوسف زيدان'),
-('أحلام مستغانمي'),
-('واسيني الأعرج');
+('نجيب محفوظ'), ('أحمد خالد توفيق'), ('غسان كنفاني'), ('جبران خليل جبران'),
+('طه حسين'), ('يوسف زيدان'), ('أحلام مستغانمي'), ('واسيني الأعرج');
 
 -- Insert sample books
 INSERT INTO books (title, description, isbn, publisher, publish_date, price, stock, category_id, author_id) VALUES 
@@ -172,6 +141,5 @@ INSERT INTO books (title, description, isbn, publisher, publish_date, price, sto
 ('ذاكرة الجسد', 'رواية عاطفية', '9789777651240', 'دار الآداب', '2014-07-15', 95.00, 45, 1, 7),
 ('طوق الياسمين', 'رواية', '9789777651241', 'دار الآداب', '2013-04-20', 85.00, 30, 1, 8);
 
--- Insert default admin
-INSERT INTO admins (username, password, name, email) VALUES 
-('admin', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'مدير النظام', 'admin@example.com'); 
+-- NOTE: Create your admin account using setup.php or manually insert with a hashed password
+-- Example: INSERT INTO admins (username, password, name, email) VALUES ('admin', '$2y$10$YOUR_HASHED_PASSWORD', 'Admin', 'admin@example.com');

@@ -1,35 +1,30 @@
 <?php
 // يجب ضبط إعدادات الجلسة قبل أي مخرجات أو استدعاء للجلسة
-// ini_set('session.cookie_httponly', 1);
-// ini_set('session.use_only_cookies', 1);
-// ini_set('session.cookie_path', '/dashboard/book_store');
-
-// Start session if not already started
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// Error reporting
+// Error reporting (disable display in production)
 error_reporting(E_ALL);
-ini_set('display_errors', 1);
+ini_set('display_errors', 0);
 ini_set('log_errors', 1);
 ini_set('error_log', dirname(__DIR__) . DIRECTORY_SEPARATOR . 'logs' . DIRECTORY_SEPARATOR . 'error.log');
 
-// Database configuration
-define('DB_HOST', 'localhost');
-define('DB_USER', 'root');
-define('DB_PASS', '');
-define('DB_NAME', 'book_store');
+// Database configuration - Use environment variables or update with your own credentials
+define('DB_HOST', getenv('DB_HOST') ?: 'localhost');
+define('DB_USER', getenv('DB_USER') ?: 'your_db_user');
+define('DB_PASS', getenv('DB_PASS') ?: 'your_db_password');
+define('DB_NAME', getenv('DB_NAME') ?: 'book_store');
 
-// Path configuration for XAMPP
-define('BASE_URL', '/dashboard/book_store');
+// Path configuration - Update with your own paths
+define('BASE_URL', getenv('BASE_URL') ?: '/book_store');
 define('BASE_PATH', dirname(__DIR__) . DIRECTORY_SEPARATOR);
 define('INCLUDES_PATH', BASE_PATH . 'includes' . DIRECTORY_SEPARATOR);
 define('UPLOAD_PATH', BASE_PATH . 'uploads' . DIRECTORY_SEPARATOR);
 define('UPLOAD_URL', BASE_URL . '/uploads/');
 
 // Site configuration
-define('SITE_URL', 'http://localhost/dashboard/book_store');
+define('SITE_URL', getenv('SITE_URL') ?: 'http://localhost/book_store');
 define('SITE_NAME', 'متجر الكتب');
 
 // Theme configuration
@@ -108,7 +103,7 @@ $required_dirs = [
 
 foreach ($required_dirs as $dir) {
     if (!file_exists($dir)) {
-        mkdir($dir, 0777, true);
+        mkdir($dir, 0755, true);
     }
 }
 
@@ -137,4 +132,4 @@ function generate_csrf_token() {
 // Function to verify CSRF token
 function verify_csrf_token($token) {
     return !empty($_SESSION[CSRF_TOKEN_NAME]) && hash_equals($_SESSION[CSRF_TOKEN_NAME], $token);
-} 
+}

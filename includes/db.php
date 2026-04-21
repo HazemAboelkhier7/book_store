@@ -8,10 +8,10 @@ class Database {
     private function __construct() {
         try {
             $this->connection = new mysqli(
-                'localhost',
-                'root',
-                '',
-                'book_store'
+                DB_HOST,
+                DB_USER,
+                DB_PASS,
+                DB_NAME
             );
             
             if ($this->connection->connect_error) {
@@ -81,4 +81,4 @@ class Database {
 // Function to get database connection
 function get_db() {
     return Database::getInstance()->getConnection();
-} 
+}

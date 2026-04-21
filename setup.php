@@ -1,12 +1,26 @@
 <?php
+/**
+ * Database Setup Script
+ * 
+ * This script initializes the database schema and inserts sample data.
+ * 
+ * IMPORTANT: 
+ * - Update database credentials in includes/config.php before running
+ * - Change the default admin password immediately after setup
+ * - Delete or restrict access to this file after initial setup
+ */
+
 // Force UTF-8 encoding
 header('Content-Type: text/html; charset=utf-8');
 ini_set('default_charset', 'UTF-8');
 mb_internal_encoding('UTF-8');
 mb_http_output('UTF-8');
 
-// Database connection
-$conn = new mysqli('localhost', 'root', '');
+// Load configuration
+require_once 'includes/config.php';
+
+// Database connection using config constants
+$conn = new mysqli(DB_HOST, DB_USER, DB_PASS);
 
 // Check connection
 if ($conn->connect_error) {
@@ -14,9 +28,8 @@ if ($conn->connect_error) {
 }
 
 // Create database
-$conn->query("DROP DATABASE IF EXISTS book_store");
-$conn->query("CREATE DATABASE IF NOT EXISTS book_store CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
-$conn->select_db('book_store');
+$conn->query("CREATE DATABASE IF NOT EXISTS `" . DB_NAME . "` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
+$conn->select_db(DB_NAME);
 
 // Create settings table
 $conn->query("
@@ -127,71 +140,45 @@ CREATE TABLE IF NOT EXISTS admins (
 // Insert default settings
 $conn->query("
 INSERT INTO settings (
-    site_name, 
-    site_description, 
-    site_keywords, 
-    site_email, 
-    site_phone, 
-    site_address, 
-    shipping_cost, 
-    tax_rate, 
-    currency_symbol, 
-    items_per_page
+    site_name, site_description, site_keywords, site_email, 
+    site_phone, site_address, shipping_cost, tax_rate, currency_symbol, items_per_page
 ) VALUES (
-    'متجر الكتب',
-    'متجر الكتب العربية الأول',
+    'متجر الكتب', 'متجر الكتب العربية الأول',
     'كتب، روايات، أدب عربي، كتب إلكترونية',
-    'info@example.com',
-    '+1234567890',
-    'عنوان المتجر',
-    30.00,
-    15.00,
-    'ر.س',
-    12
+    'info@example.com', '+1234567890', 'عنوان المتجر',
+    30.00, 15.00, 'ر.س', 12
 )");
 
 // Insert sample categories
 $conn->query("
 INSERT INTO categories (name) VALUES 
-('روايات'),
-('كتب دينية'),
-('كتب تاريخية'),
-('كتب علمية'),
-('كتب أطفال'),
-('كتب تنمية بشرية'),
-('شعر'),
-('سير ذاتية')
+('روايات'), ('كتب دينية'), ('كتب تاريخية'), ('كتب علمية'),
+('كتب أطفال'), ('كتب تنمية بشرية'), ('شعر'), ('سير ذاتية')
 ");
 
 // Insert sample authors
 $conn->query("
 INSERT INTO authors (name) VALUES 
-('نجيب محفوظ'),
-('أحمد خالد توفيق'),
-('غسان كنفاني'),
-('جبران خليل جبران'),
-('طه حسين'),
-('يوسف زيدان'),
-('أحلام مستغانمي'),
-('واسيني الأعرج')
+('نجيب محفوظ'), ('أحمد خالد توفيق'), ('غسان كنفاني'), ('جبران خليل جبران'),
+('طه حسين'), ('يوسف زيدان'), ('أحلام مستغانمي'), ('واسيني الأعرج')
 ");
 
-// Insert default admin (username: admin, password: admin123)
-$admin_password = password_hash('admin123', PASSWORD_DEFAULT);
-$conn->query("
-INSERT INTO admins (username, password, name, email) VALUES 
-('admin', '$admin_password', 'مدير النظام', 'admin@example.com')
-");
+// Insert default admin - CHANGE THIS PASSWORD IMMEDIATELY AFTER SETUP
+$admin_password = password_hash(bin2hex(random_bytes(8)), PASSWORD_DEFAULT);
+$stmt = $conn->prepare("INSERT INTO admins (username, password, name, email) VALUES (?, ?, 'مدير النظام', 'admin@example.com')");
+$default_user = 'admin';
+$stmt->bind_param("ss", $default_user, $admin_password);
+$stmt->execute();
 
 // Create required directories
 $dirs = ['uploads', 'logs'];
 foreach ($dirs as $dir) {
     if (!file_exists($dir)) {
-        mkdir($dir, 0777, true);
+        mkdir($dir, 0755, true);
     }
 }
 
 echo "تم إعداد قاعدة البيانات بنجاح!<br>";
-echo "اسم المستخدم: admin<br>";
-echo "كلمة المرور: admin123<br>";
-echo '<a href="index.php">العودة إلى الصفحة الرئيسية</a>'; 
+echo "⚠️ يرجى تعيين كلمة مرور جديدة للأدمن من خلال قاعدة البيانات<br>";
+echo '<a href="index.php">العودة إلى الصفحة الرئيسية</a>';
+echo "<br><br><strong>⚠️ تحذير: احذف هذا الملف بعد الإعداد الأولي لأسباب أمنية!</strong>";

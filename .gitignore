@@ -1,32 +1,35 @@
-# ملفات البيئة
+# Environment and configuration
 .env
+*.env.*
 
-# ملفات النظام
+# Logs
+logs/*.log
+!logs/.gitkeep
+
+# Uploads (user content)
+uploads/*
+!uploads/.gitkeep
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*.~*
+
+# OS files
 .DS_Store
 Thumbs.db
 
-# ملفات السجلات
-*.log
-
-# مجلدات الاعتماديات (في حالة استخدام Composer أو Node.js)
+# Dependencies
 vendor/
 node_modules/
 
-# ملفات مؤقتة أو نسخ احتياطية
+# Sensitive/temporary files
 *.bak
+*.backup
 *.tmp
-*.swp
-*.~*
-
-# مجلدات خاصة بـ XAMPP أو التشغيل المحلي
-xampp/
-htdocs/
-*.db
-*.sql
-*.ini
-*.bak
-*.tmp
-
-# تجاهل مجلدات cache المحتملة
-cache/
 *.cache
+
+# Cache
+cache/

@@ -1,94 +1,117 @@
-# متجر الروايات - Book Store
+# 📚 Book Store - متجر الكتب
 
-متجر إلكتروني لبيع الروايات مبني باستخدام PHP و MySQL.
+An online Arabic book store web application built with **PHP** and **MySQL**. Customers can browse, search, and purchase books with a full shopping cart and checkout system.
 
-## متطلبات النظام
+## ✨ Features
 
-- PHP 8.0 أو أحدث
-- MySQL 5.7 أو أحدث
-- خادم ويب (Apache/Nginx)
-- XAMPP/WAMP/MAMP (للتطوير المحلي)
+### Customer Interface
+- Browse books by category, author, or search
+- Shopping cart with quantity management
+- Secure checkout process
+- Order tracking
+- Responsive dark-themed UI with Arabic RTL support
 
-## تثبيت المشروع
+### Admin Panel
+- Manage books (CRUD operations)
+- Manage orders and update status
+- Site settings and branding
+- Dashboard with statistics
 
-### 1. تنزيل المشروع
+## 🛠️ Tech Stack
 
-قم بتنزيل المشروع إلى مجلد الويب الخاص بك:
+| Technology | Purpose |
+|-----------|---------|
+| PHP 8.0+ | Backend logic |
+| MySQL 5.7+ | Database |
+| Bootstrap 5 | Frontend framework |
+| Font Awesome | Icons |
+| jQuery | DOM manipulation |
 
-```
-htdocs/book_store/ (XAMPP)
-www/book_store/ (WAMP)
-```
+## 🚀 Installation
 
-### 2. إنشاء قاعدة البيانات
+### Prerequisites
+- PHP 8.0 or higher
+- MySQL 5.7 or higher
+- Apache/Nginx web server
+- XAMPP/WAMP/MAMP (for local development)
 
-1. قم بتشغيل MySQL من لوحة تحكم XAMPP/WAMP
-2. انتقل إلى phpMyAdmin: http://localhost/phpmyadmin
-3. قم بإنشاء قاعدة بيانات جديدة باسم `book_store`
-4. استيراد ملف قاعدة البيانات `book_store.sql` إلى قاعدة البيانات التي أنشأتها
+### Setup Steps
 
-### 3. تكوين الاتصال بقاعدة البيانات
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/HazemAboelkhier7/book_store.git
+   cd book_store
+   ```
 
-قم بتعديل ملف `includes/config.php` بمعلومات الاتصال الخاصة بك:
+2. **Configure database connection:**
+   
+   Edit `includes/config.php` and update the database credentials:
+   ```php
+   define('DB_HOST', 'localhost');
+   define('DB_USER', 'your_username');
+   define('DB_PASS', 'your_password');
+   define('DB_NAME', 'book_store');
+   ```
+   
+   Or set environment variables:
+   ```bash
+   export DB_HOST=localhost
+   export DB_USER=your_username
+   export DB_PASS=your_password
+   export DB_NAME=book_store
+   ```
 
-```php
-define('DB_HOST', 'localhost');
-define('DB_USER', 'root');           // اسم المستخدم الافتراضي في XAMPP/WAMP
-define('DB_PASS', '');               // كلمة المرور (فارغة افتراضيًا في XAMPP)
-define('DB_NAME', 'book_store');     // اسم قاعدة البيانات
+3. **Create the database:**
+   - Import `book_store.sql` via phpMyAdmin or command line:
+   ```bash
+   mysql -u your_username -p < book_store.sql
+   ```
 
-// لا تنسى تعديل مسار الموقع الخاص بك إذا كان مختلفًا
-define('SITE_URL', 'http://localhost/dashboard/book_store');
-```
+4. **Run the setup script:**
+   - Navigate to `http://localhost/book_store/setup.php`
+   - This will create tables and insert sample data
+   - **Delete `setup.php` after initial setup for security**
 
-### 4. إنشاء مجلدات التحميل
+5. **Set directory permissions:**
+   ```bash
+   chmod 755 uploads/ logs/
+   ```
 
-تأكد من إنشاء المجلدات التالية وضبط صلاحياتها للكتابة:
-
-```
-assets/uploads/
-```
-
-## تسجيل الدخول إلى لوحة الإدارة
-
-1. انتقل إلى: http://localhost/dashboard/book_store/admin/
-2. استخدم بيانات الاعتماد الافتراضية:
-   - اسم المستخدم: `admin2`
-   - كلمة المرور: `admin1234`
-
-## المميزات
-
-1. **واجهة المستخدم**
-   - عرض قائمة الروايات المتاحة
-   - سلة المشتريات
-   - إتمام عملية الشراء
-
-2. **لوحة التحكم**
-   - إدارة الروايات (إضافة/تعديل/حذف)
-   - عرض الطلبات وتحديث حالتها
-   - إعدادات الموقع (تغيير اسم الموقع والشعار)
-
-## هيكل المشروع
+## 📁 Project Structure
 
 ```
 book_store/
-├── admin/              # لوحة التحكم
-├── assets/             # الملفات الثابتة
-│   ├── css/
-│   ├── js/
-│   ├── img/
-│   └── uploads/        # تحميل صور الأغلفة والشعار
-├── includes/           # ملفات PHP المشتركة
-├── book_store.sql      # ملف قاعدة البيانات
-└── README.md           # تعليمات التثبيت
+├── admin/              # Admin panel pages
+├── ajax/               # AJAX handlers
+├── assets/             # Static files (CSS, JS, images)
+├── includes/           # Core PHP files (config, functions, auth)
+├── logs/               # Error logs (gitignored)
+├── uploads/            # User uploads (gitignored)
+├── book_store.sql      # Database schema
+├── setup.php           # Initial setup script
+├── index.php           # Homepage
+├── book.php            # Book details page
+├── cart.php            # Shopping cart
+├── checkout.php        # Checkout page
+├── search.php          # Search results
+└── order.php           # Order details
 ```
 
-## الأمان
+## 🔒 Security Features
 
-- تم تشفير كلمات المرور باستخدام PHP's password_hash()
-- تحقق من الجلسة لصفحات الإدارة
-- التحقق من صحة المدخلات وتنظيفها
+- Password hashing with `password_hash()` (bcrypt)
+- CSRF token protection on all forms
+- Prepared statements (SQL injection prevention)
+- Input sanitization and validation
+- Session timeout management
+- Security headers (X-Frame-Options, XSS Protection, etc.)
+- File upload validation (type, size, dimensions)
 
-## تخصيص المشروع
+## 📄 License
 
-يمكنك تخصيص مظهر الموقع من خلال تعديل ملفات CSS وإعدادات Bootstrap. 
+This project is licensed under the **GNU General Public License v3.0** - see the [LICENSE](LICENSE) file for details.
+
+## 👤 Author
+
+**Hazem Aboelkhier**  
+GitHub: [@HazemAboelkhier7](https://github.com/HazemAboelkhier7)
